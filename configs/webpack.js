@@ -1,23 +1,25 @@
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
+const paths = require('./paths')
 
 module.exports = (env) => ({
   entry: {
-    main: './src/index.js',
+    main: paths.src('index.js'),
     vendor: ['react', 'react-dom'],
   },
   output: {
+    // use [chunkhash] in production only
+    // because it increases compilation time
     filename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: paths.dist(),
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: path.resolve(__dirname, 'src'),
+        include: paths.src(),
         options: {
           babelrc: false,
           presets: [
@@ -41,11 +43,11 @@ module.exports = (env) => ({
       name: 'manifest',
     }),
     new CleanWebpackPlugin([
-      path.resolve(__dirname, 'dist'),
+      paths.dist(),
     ]),
     new HtmlWebpackPlugin({
       title: 'Webpack Demo',
-      template: 'src/index.ejs',
+      template: paths.src('index.ejs'),
     }),
   ],
 })
