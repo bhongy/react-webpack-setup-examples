@@ -32,20 +32,26 @@ module.exports = (env) => ({
     ],
   },
   plugins: [
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor', // specify the common bundle's name.
+    //   // implicit common vendor chunk
+    //   // https://webpack.js.org/guides/code-splitting-libraries/#implicit-common-vendor-chunk
+    //   minChunks(module) {
+    //     return module.context && module.context.indexOf('node_modules') !== -1
+    //   },
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'manifest',
+    // }),
     new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor', // specify the common bundle's name.
-        // implicit common vendor chunk
-        // https://webpack.js.org/guides/code-splitting-libraries/#implicit-common-vendor-chunk
-        // minChunks(module) {
-        //   return module.context && module.context.indexOf('node_modules') !== -1
-        // },
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
+      // important: "manifest" has to follow "vendor"
+      // otherwise it will be included in "vendor" and cause
+      // vendor [chunkhash] to change everytime
+      names: ['vendor', 'manifest'],
     }),
     new CleanWebpackPlugin([
       paths.dist(),
-    ]),
+    ], { root: paths.root() }),
     new HtmlWebpackPlugin({
       title: 'Webpack Demo',
       template: paths.src('index.ejs'),
