@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const paths = require('./paths')
 
@@ -52,6 +53,9 @@ module.exports = (env) => ({
     new CleanWebpackPlugin([
       paths.dist(),
     ], { root: paths.root() }),
+    new InlineManifestWebpackPlugin({
+      name: 'webpackManifest',
+    }),
     new HtmlWebpackPlugin({
       title: 'Webpack Demo',
       template: paths.src('index.ejs'),
