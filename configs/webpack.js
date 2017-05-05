@@ -4,6 +4,8 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const paths = require('./paths')
 
+const { noop } = require('lodash')
+
 /* Parts */
 
 const output = (env) => ({
@@ -27,13 +29,12 @@ const javascriptRule = () => ({
   },
 })
 
-const cleanDist = () => ([
+const cleanDist = () =>
   new CleanWebpackPlugin([
     paths.dist(),
   ], {
     root: paths.root(),
-  }),
-])
+  })
 
 const createHtml = (env) => {
   const htmlWebpackPlugin = new HtmlWebpackPlugin({
@@ -83,7 +84,8 @@ module.exports = (env = { production: false }) => ({
       // vendor [chunkhash] to change everytime
       names: ['vendor', 'manifest'],
     }),
-    ...cleanDist(),
+
+    env.devServer ? noop : cleanDist(),
     ...createHtml(env),
   ],
 })
