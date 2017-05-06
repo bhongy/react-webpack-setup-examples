@@ -19,14 +19,6 @@ const javascriptRule = () => ({
   test: /\.js$/,
   loader: 'babel-loader',
   include: paths.src(),
-  options: {
-    babelrc: false,
-    presets: [
-      ['es2015', { modules: false }],
-      'stage-2',
-      'react',
-    ],
-  },
 })
 
 const cleanDist = () =>
