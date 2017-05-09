@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const paths = require('./paths')
+const project = require('../config/project')
 
 const { noop } = require('lodash')
 
@@ -36,7 +36,7 @@ const output = (env) => ({
   // use [chunkhash] in production only
   // because it increases compilation time
   filename: env.production ? '[name].[chunkhash].js' : '[name].js',
-  path: paths.dist(),
+  path: project.paths.dist(),
   // necessary for HMR to know where to load the hot update chunks
   publicPath: env.devServer ? '/' : '',
 })
@@ -44,7 +44,7 @@ const output = (env) => ({
 const javascriptRule = () => ({
   test: /\.js$/,
   loader: 'babel-loader',
-  include: paths.src(),
+  include: project.paths.src(),
 })
 
 const cssRule = () => ({
@@ -87,15 +87,15 @@ const splitChunks = () =>
 
 const cleanDist = () =>
   new CleanWebpackPlugin([
-    paths.dist(),
+    project.paths.dist(),
   ], {
-    root: paths.root(),
+    root: project.paths.root(),
   })
 
 const createHtml = (env) => {
   const htmlWebpackPlugin = new HtmlWebpackPlugin({
     title: 'Webpack Demo',
-    template: paths.src('index.ejs'),
+    template: project.paths.src('index.ejs'),
   })
 
   if (env.production) {
@@ -111,7 +111,7 @@ const createHtml = (env) => {
 }
 
 module.exports = (env = { production: false }) => ({
-  context: paths.src(),
+  context: project.paths.src(),
   entry: entry(env),
   output: output(env),
   module: {

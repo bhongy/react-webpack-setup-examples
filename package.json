@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config configs/webpack.js --env.devServer --progress",
-    "build": "webpack --config configs/webpack.js --progress",
+    "start": "webpack-dev-server --config config/webpack.js --env.devServer --progress",
+    "build": "webpack --config config/webpack.js --progress",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
