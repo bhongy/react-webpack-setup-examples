@@ -2,136 +2,130 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const project = require('../config/project')
 
+const project = require('../config/project')
 const { noop } = require('lodash')
 
-/* Parts */
-
-const entry = (env) => {
-  if (env.devServer) {
-    return {
-      main: [
-        // activate HMR for React
-        'react-hot-loader/patch',
-        // bundle the client for webpack-dev-server
-        // and connect to the provided endpoint
-        'webpack-dev-server/client?http://localhost:8080',
-        // bundle the client for hot reloading
-        // only- means to only hot reload for successful updates
-        'webpack/hot/only-dev-server',
-        './index.js'
-      ],
-      vendor: ['react', 'react-dom'],
-    }
+module.exports = ({
+  devServer = false,
+  production = false,
+}) => {
+  const config = {
+    context: project.paths.src(),
   }
 
-  return {
-    main: './index.js',
+  const mainEntry = devServer
+    ? [
+      // activate HMR for React
+      'react-hot-loader/patch',
+      // bundle the client for webpack-dev-server
+      // and connect to the provided endpoint
+      'webpack-dev-server/client',
+      // bundle the client for hot reloading
+      // only- means to only hot reload for successful updates
+      'webpack/hot/only-dev-server',
+      './index.js'
+    ]
+    : './index.js'
+
+  config.entry = {
+    main: mainEntry,
     vendor: ['react', 'react-dom'],
   }
-}
 
-const output = (env) => ({
-  // use [chunkhash] in production only
-  // because it increases compilation time
-  filename: env.production ? '[name].[chunkhash].js' : '[name].js',
-  path: project.paths.dist(),
-  // necessary for HMR to know where to load the hot update chunks
-  publicPath: env.devServer ? '/' : '',
-})
+  config.output = {
+    // use [chunkhash] in production only
+    // because it increases compilation time
+    filename: production ? '[name].[chunkhash:12].js' : '[name].js',
+    path: project.paths.dist(),
+    // necessary for HMR to know where to load the hot update chunks
+    publicPath: devServer
+      ? '/'
+      : production
+      ? 'https://cdn.google.com'
+      : '',
+  }
 
-const javascriptRule = () => ({
-  test: /\.js$/,
-  loader: 'babel-loader',
-  include: project.paths.src(),
-})
-
-const cssRule = () => ({
-  test: /\.css$/,
-  use: [
-    {
-      loader: 'style-loader'
+  config.module = {
+    rules: [{
+      test: /\.js$/,
+      loader: 'babel-loader',
+      include: project.paths.src(),
     }, {
-      loader: 'css-loader',
-      options: { modules: true },
-    },
-  ],
-})
+      test: /\.css$/,
+      use: [{
+        loader: 'style-loader'
+      }, {
+        loader: 'css-loader',
+        options: { modules: true },
+      }],
+    }]
+  }
 
-const hotModuleReplacementPlugins = () => ([
-  // enable HMR globally
-  new webpack.HotModuleReplacementPlugin(),
-  // prints more readable module names in the browser console on HMR updates
-  new webpack.NamedModulesPlugin(),
-])
+  const commonsChunk = () =>
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor', // specify the common bundle's name.
+    //   // implicit common vendor chunk
+    //   // https://webpack.js.org/guides/code-splitting-libraries/#implicit-common-vendor-chunk
+    //   minChunks(module) {
+    //     return module.context && module.context.indexOf('node_modules') !== -1
+    //   },
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'manifest',
+    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      // important: "manifest" has to follow "vendor"
+      // otherwise it will be included in "vendor" and cause
+      // vendor [chunkhash] to change everytime
+      names: ['vendor', 'manifest'],
+    })
 
-const splitChunks = () =>
-  // new webpack.optimize.CommonsChunkPlugin({
-  //   name: 'vendor', // specify the common bundle's name.
-  //   // implicit common vendor chunk
-  //   // https://webpack.js.org/guides/code-splitting-libraries/#implicit-common-vendor-chunk
-  //   minChunks(module) {
-  //     return module.context && module.context.indexOf('node_modules') !== -1
-  //   },
-  // }),
-  // new webpack.optimize.CommonsChunkPlugin({
-  //   name: 'manifest',
-  // }),
-  new webpack.optimize.CommonsChunkPlugin({
-    // important: "manifest" has to follow "vendor"
-    // otherwise it will be included in "vendor" and cause
-    // vendor [chunkhash] to change everytime
-    names: ['vendor', 'manifest'],
-  })
+  const cleanDist = () =>
+    new CleanWebpackPlugin([
+      project.paths.dist(),
+    ], {
+      root: project.paths.root(),
+    })
 
-const cleanDist = () =>
-  new CleanWebpackPlugin([
-    project.paths.dist(),
-  ], {
-    root: project.paths.root(),
-  })
+  const htmlPlugin = () =>
+    new HtmlWebpackPlugin({
+      title: 'Webpack Demo',
+      template: project.paths.src('index.ejs'),
+    })
 
-const createHtml = (env) => {
-  const htmlWebpackPlugin = new HtmlWebpackPlugin({
-    title: 'Webpack Demo',
-    template: project.paths.src('index.ejs'),
-  })
-
-  if (env.production) {
-    return [
-      htmlWebpackPlugin,
+  if (devServer) {
+    config.plugins = [
+      // enable HMR globally
+      new webpack.HotModuleReplacementPlugin(),
+      // prints more readable module names in the browser console on HMR updates
+      new webpack.NamedModulesPlugin(),
+      commonsChunk(),
+      htmlPlugin(),
+    ]
+  } else {
+    config.plugins = [
+      commonsChunk(),
+      cleanDist(),
+      htmlPlugin(),
       new InlineManifestWebpackPlugin({
         name: 'webpackManifest',
       }),
     ]
   }
 
-  return [htmlWebpackPlugin]
-}
+  config.devtool = production
+      ? 'hidden-source-map'
+      : 'cheap-module-eval-source-map'
 
-module.exports = (env = { production: false }) => ({
-  context: project.paths.src(),
-  entry: entry(env),
-  output: output(env),
-  module: {
-    rules: [
-      javascriptRule(),
-      cssRule(),
-    ],
-  },
-  plugins: [
-    ...(env.devServer ? hotModuleReplacementPlugins() : []),
-    // env.devServer ? noop : splitChunks(),
-    splitChunks(),
-    env.devServer ? noop : cleanDist(),
-    ...createHtml(env),
-  ],
-  devtool: 'inline-source-map',
-  devServer: env.devServer ? {
-    // enable HMR on the server
-    hot: true,
-    contentBase: output(env).path,
-    publicPath: output(env).publicPath,
-  } : {},
-})
+  if (devServer) {
+    config.devServer = {
+      // enable HMR on the server
+      hot: true,
+      contentBase: config.output.path,
+      publicPath: config.output.publicPath,
+    }
+  }
+
+  return config
+}
