@@ -29,12 +29,15 @@ const devServerConfig = {
     main: [
       // activate HMR for React
       'react-hot-loader/patch',
+
       // bundle the client for webpack-dev-server
       // and connect to the provided endpoint
-      'webpack-dev-server/client',
+      'webpack-hot-middleware/client',
+
       // bundle the client for hot reloading
       // only- means to only hot reload for successful updates
       'webpack/hot/only-dev-server',
+
       // TODO: extract to variable
       './index.js'
     ],
@@ -50,12 +53,6 @@ const devServerConfig = {
   },
 
   devtool: 'cheap-module-eval-source-map',
-  devServer: {
-    // enable HMR on the server
-    hot: true,
-    contentBase: project.paths.dist(),  // output.path
-    publicPath: '/',  // output.publicPath
-  },
 
   plugins: [
     // enable HMR globally
@@ -63,6 +60,11 @@ const devServerConfig = {
     // prints more readable module names in the browser console on HMR updates
     // otherwise HMR will log module id instead
     new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.EvalSourceMapDevToolPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development'),
+    }),
     new webpack.optimize.CommonsChunkPlugin({
       // important: "manifest" has to follow "vendor"
       // otherwise it will be included in "vendor" and cause
