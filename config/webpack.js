@@ -27,17 +27,12 @@ const commonConfig = {
 const devServerConfig = {
   entry: {
     main: [
-      // activate HMR for React
-      'react-hot-loader/patch',
-
       // bundle the client for webpack-dev-server
       // and connect to the provided endpoint
-      'webpack-hot-middleware/client',
-
-      // bundle the client for hot reloading
-      // only- means to only hot reload for successful updates
-      'webpack/hot/only-dev-server',
-
+      // ---
+      // only need this for Webpack 2 with webpack-hot-middleware
+      // https://github.com/glenjamin/webpack-hot-middleware/blob/40745357fa0c069204d01c993371bdbcd2e6fc74/README.md#200
+      'webpack-hot-middleware/client?reload=true',
       // TODO: extract to variable
       './index.js'
     ],
