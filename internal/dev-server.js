@@ -1,14 +1,14 @@
 const express = require('express')
+const project = require('../config/project')
+const webpackConfig = require('../config/webpack')({ production: false })
 const webpack = require('webpack')
-const project = require('./config/project')
-const config = require('./config/webpack')({ production: false })
 
 const app = express()
-const compiler = webpack(config)
+const compiler = webpack(webpackConfig)
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
-  publicPath: config.output.publicPath,
+  publicPath: webpackConfig.output.publicPath,
   stats: {
     colors: true,
   },
