@@ -1,7 +1,7 @@
 const express = require('express')
 const webpack = require('webpack')
 const project = require('./config/project')
-const config = require('./config/webpack')({ devServer: true })
+const config = require('./config/webpack')({ production: false })
 
 const app = express()
 const compiler = webpack(config)

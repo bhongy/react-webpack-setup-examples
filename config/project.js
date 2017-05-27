@@ -12,3 +12,14 @@ exports.paths = {
   src  : root.bind(null, 'src'),
   dist : root.bind(null, 'dist'),
 }
+
+/**
+ * Webpack
+ */
+
+exports.entry = {
+  vendor: [
+    'react',
+    'react-dom',
+  ],
+}
