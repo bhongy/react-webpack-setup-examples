@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   context: project.paths.src(),
@@ -16,7 +17,7 @@ module.exports = {
     // because it increases compilation time
     filename: '[name].[chunkhash:12].js',
     path: project.paths.dist(),
-    publicPath: 'https://cdn.google.com',
+    // publicPath: 'https://cdn.google.com',
   },
 
   module: {
@@ -26,12 +27,16 @@ module.exports = {
       include: project.paths.src(),
     }, {
       test: /\.css$/,
-      use: [{
-        loader: 'style-loader',
-      }, {
-        loader: 'css-loader',
-        options: { modules: true },
-      }],
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: {
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            localIdentName: '[hash:base64:8]',
+          },
+        },
+      }),
     }],
   },
 
@@ -43,6 +48,15 @@ module.exports = {
       project.paths.dist(),
     ], {
       root: project.paths.root(),
+    }),
+    // This will extract all CSS even from dyanmically imported chunks
+    // track progress for CSS extract for dynamic chunks in this issue:
+    // https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/455
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash:12].css',
+      // disable allChunks to avoid extracting CSS from
+      // dynamically imported chunks
+      // allChunks: true,
     }),
     new HtmlWebpackPlugin({
       title: 'Webpack Demo',
