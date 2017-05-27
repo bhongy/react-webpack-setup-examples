@@ -1,9 +1,9 @@
-const project = require('../config/project')
 const webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const project = require('../config/project')
 
 module.exports = {
   context: project.paths.src(),
@@ -21,32 +21,33 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      include: project.paths.src(),
-    }, {
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            localIdentName: '[hash:base64:8]',
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: project.paths.src(),
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[hash:base64:8]',
+            },
           },
-        },
-      }),
-    }],
+        }),
+      },
+    ],
   },
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'],
     }),
-    new CleanWebpackPlugin([
-      project.paths.dist(),
-    ], {
+    new CleanWebpackPlugin([project.paths.dist()], {
       root: project.paths.root(),
     }),
     // This will extract all CSS even from dyanmically imported chunks

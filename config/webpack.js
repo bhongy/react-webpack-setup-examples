@@ -1,4 +1,5 @@
-module.exports = (env) => {  // Do not provide default, prefer explicitness
+// Do not provide default, prefer explicitness
+module.exports = (env) => {
   if (env.production) {
     return require('./webpack.production')
   }

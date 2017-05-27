@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import Header from './header'
 import s from './app.css'
 
+/* eslint-disable react/jsx-no-bind */
 class App extends PureComponent {
   state = {
     footer: null,
@@ -13,10 +14,10 @@ class App extends PureComponent {
     // https://webpack.js.org/guides/code-splitting-async/#usage-with-babel
     import('./footer')
       .then(module => module.default)
-      .then(Footer => {
-        this.setState({ footer: <Footer />})
+      .then((Footer) => {
+        this.setState({ footer: <Footer /> })
       })
-      .catch(error => null)
+      .catch(() => null)
   }
 
   render() {

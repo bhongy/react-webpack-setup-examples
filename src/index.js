@@ -4,10 +4,7 @@ import App from './app'
 
 const rootElement = document.getElementById('react-root')
 const render = (Component) => {
-  ReactDOM.render(
-    <Component />,
-    rootElement,
-  )
+  ReactDOM.render(<Component />, rootElement)
 }
 
 render(App)

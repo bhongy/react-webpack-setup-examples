@@ -1,6 +1,6 @@
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const project = require('../config/project')
-const webpack = require('webpack')
 
 module.exports = {
   context: project.paths.src(),
@@ -25,22 +25,28 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.js$/,
-      loader: 'babel-loader',
-      include: project.paths.src(),
-    }, {
-      test: /\.css$/,
-      use: [{
-        loader: 'style-loader',
-      }, {
-        loader: 'css-loader',
-        options: {
-          modules: true,
-          localIdentName: '[name]__[local]--[hash:base64:6]',
-        },
-      }],
-    }],
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: project.paths.src(),
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:6]',
+            },
+          },
+        ],
+      },
+    ],
   },
 
   devtool: 'cheap-module-eval-source-map',

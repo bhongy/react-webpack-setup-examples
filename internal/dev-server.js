@@ -1,18 +1,20 @@
 const express = require('express')
+const webpack = require('webpack')
 const project = require('../config/project')
 const webpackConfig = require('../config/webpack')({ production: false })
-const webpack = require('webpack')
 
 const app = express()
 const compiler = webpack(webpackConfig)
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: webpackConfig.output.publicPath,
-  stats: {
-    colors: true,
-  },
-}))
+app.use(
+  require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+      colors: true,
+    },
+  }),
+)
 
 app.use(require('webpack-hot-middleware')(compiler))
 
@@ -27,5 +29,5 @@ app.listen(port, (err) => {
     return console.log(err)
   }
 
-  console.log(`http://localhost:${port}`)
+  return console.log(`http://localhost:${port}`)
 })
