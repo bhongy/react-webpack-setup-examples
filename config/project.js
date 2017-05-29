@@ -1,5 +1,7 @@
 const path = require('path')
 
+exports.browsers = ['last 2 versions']
+
 /**
  * Paths
  */

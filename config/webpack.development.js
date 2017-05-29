@@ -42,6 +42,17 @@ module.exports = {
             options: {
               modules: true,
               localIdentName: '[name]__[local]--[hash:base64:6]',
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              // allow using inline comments "//"
+              // the parser will turn it to CSS comment "/* */"
+              parser: 'postcss-scss',
+              plugins: require('./postcss-plugins').development,
+              sourceMap: true,
             },
           },
         ],

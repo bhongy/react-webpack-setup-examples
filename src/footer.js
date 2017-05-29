@@ -5,6 +5,7 @@ const Footer = () => (
   <footer>
     ©&nbsp;
     <span className={s.date}>{new Date().getFullYear()}</span>
+    <button className={s.button}>Press!</button>
   </footer>
 )
 

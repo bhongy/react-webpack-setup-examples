@@ -1,3 +1,12 @@
+$color: #468;
+
 .header {
-  color: limegreen;
+  color: $color;
+
+  @media (min-width: 1024px) {
+    // this is scoped to the block
+    $color: #bada55;
+
+    color: $color;
+  }
 }

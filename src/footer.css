@@ -1,3 +1,8 @@
 .date {
   color: gray;
 }
+
+.button {
+  appearance: none;
+  @mixin size 80px;
+}
