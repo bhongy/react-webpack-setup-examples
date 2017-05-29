@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const project = require('../config/project')
+const project = require('./project')
 
 module.exports = {
   context: project.paths.src(),
