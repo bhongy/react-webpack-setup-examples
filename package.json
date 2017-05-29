@@ -2,6 +2,9 @@
   "name": "webpack-demo",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": ">= 6.9.0"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node internal/dev-server",
