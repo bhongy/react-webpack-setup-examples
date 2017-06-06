@@ -11,7 +11,7 @@ module.exports = {
       // ---
       // only need this for Webpack 2 with webpack-hot-middleware
       // https://github.com/glenjamin/webpack-hot-middleware/blob/40745357fa0c069204d01c993371bdbcd2e6fc74/README.md#200
-      'webpack-hot-middleware/client?reload=true',
+      'webpack-hot-middleware/client',
       './index.js',
     ],
     vendor: project.entry.vendor,
@@ -30,6 +30,10 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: project.paths.src(),
+        options: {
+          // enable caching for faster webpack rebuild
+          cacheDirectory: true,
+        },
       },
       {
         test: /\.css$/,
@@ -40,8 +44,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              import: false,
+              importLoaders: 1,
               localIdentName: '[name]__[local]--[hash:base64:6]',
+              modules: true,
               sourceMap: true,
             },
           },
