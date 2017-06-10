@@ -27,6 +27,7 @@ class App extends PureComponent {
         <h1 onClick={() => console.log('Woohoo!')}>
           Hello, world!
         </h1>
+        <input />
         {this.state.footer}
       </main>
     )

@@ -6,9 +6,8 @@ module.exports = {
   context: project.paths.src(),
   entry: {
     main: [
-      // bundle the client for webpack-dev-server
-      // and connect to the provided endpoint
-      // ---
+      // activate HMR for React
+      'react-hot-loader/patch',
       // only need this for Webpack 2 with webpack-hot-middleware
       // https://github.com/glenjamin/webpack-hot-middleware/blob/40745357fa0c069204d01c993371bdbcd2e6fc74/README.md#200
       'webpack-hot-middleware/client',
