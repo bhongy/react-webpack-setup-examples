@@ -29,10 +29,13 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: project.paths.src(),
-        options: {
-          // enable caching for faster webpack rebuild
-          cacheDirectory: true,
-        },
+        options: Object.assign(
+          {
+            // enable caching for faster webpack rebuild
+            cacheDirectory: true,
+          },
+          require('./babel').development
+        ),
       },
       {
         test: /\.css$/,
