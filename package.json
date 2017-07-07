@@ -40,6 +40,7 @@
     "postcss-mixins": "^6.0.0",
     "postcss-nesting": "^4.0.1",
     "postcss-scss": "^1.0.1",
+    "react-hot-loader": "next",
     "style-loader": "^0.18.2",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2",
@@ -48,7 +49,6 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-hot-loader": "next"
+    "react-dom": "^15.5.4"
   }
 }
