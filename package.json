@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Thanik Bhongbhibhat <thanik@b8ta.com> (https://b8ta.com)",
+  "author": "Thanik Bhongbhibhat <bhongbhibhat@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^7.1.1",
