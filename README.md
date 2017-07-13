@@ -12,7 +12,7 @@
 - [x] Vendor Chunk Splitting with CommonsChunkPlugin
 - [x] Dynamic import components
 - [x] Avoid using NODE_ENV as environment variable
-- [ ] Jest test framework
+- [x] Jest test framework
 - [ ] HMR work with dynamic import modules
 - [ ] DLL vendor chunks
 - [ ] React Router v4
