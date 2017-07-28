@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react'
-import asyncComponent from './async-component'
-import Header from './header'
-import s from './app.css'
+import React, { PureComponent } from 'react';
+import asyncComponent from './async-component';
+import Header from './header';
+import s from './app.css';
 
 const AsyncFooter = asyncComponent(() =>
-  import('./footer').then(module => module.default),
-)
+  import('./footer').then(module => module.default)
+);
 
 /* eslint-disable */
 class App extends PureComponent {

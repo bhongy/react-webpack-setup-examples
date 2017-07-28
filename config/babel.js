@@ -14,14 +14,14 @@ const presets = [
   ],
   'stage-2',
   'react',
-]
+];
 
 exports.development = {
   presets,
   plugins: ['lodash', 'react-hot-loader/babel'],
-}
+};
 
 exports.production = {
   presets,
   plugins: ['lodash'],
-}
+};

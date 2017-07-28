@@ -1,26 +1,26 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 
 // eslint-disable-next-line no-undef
 const asyncComponent = (getComponent: () => Promise<React$Component>) =>
   class AsyncComponent extends PureComponent {
-    constructor(props) {
-      super(props)
-      this.state = { Component: null }
+    constructor (props) {
+      super(props);
+      this.state = { Component: null };
     }
 
-    componentDidMount() {
-      getComponent().then(Component => this.setState({ Component }))
+    componentDidMount () {
+      getComponent().then(Component => this.setState({ Component }));
     }
 
-    render() {
-      const { Component } = this.state
+    render () {
+      const { Component } = this.state;
 
       if (!Component) {
-        return null
+        return null;
       }
 
-      return <Component {...this.props} />
+      return <Component {...this.props} />;
     }
-  }
+  };
 
-export default asyncComponent
+export default asyncComponent;
