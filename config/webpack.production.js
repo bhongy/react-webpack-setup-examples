@@ -16,7 +16,7 @@ module.exports = {
     // use [chunkhash] in production only
     // because it increases compilation time
     filename: '[name].[chunkhash:12].js',
-    path: project.paths.dist(),
+    path: project.paths.build(),
     // publicPath: 'https://cdn.google.com',
   },
 
@@ -61,7 +61,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'],
     }),
-    new CleanWebpackPlugin([project.paths.dist()], {
+    new CleanWebpackPlugin([project.paths.build()], {
       root: project.paths.root(),
     }),
     // This will extract all CSS even from dyanmically imported chunks
