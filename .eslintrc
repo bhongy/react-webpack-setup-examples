@@ -1,3 +1,30 @@
 {
-  "extends": "b8ta/main.yaml"
+  "extends": "fbjs/strict",
+  "rules": {
+    "comma-dangle": [
+      "warn",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ],
+    "indent": ["warn", 2],
+    "max-len": [
+      "warn",
+      {
+        "code": 80,
+        "tabWidth": 2,
+        "ignoreUrls": true,
+        "ignoreComments": false,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "one-var": ["warn", "never"],
+    "quotes": ["warn", "single"]
+  }
 }
