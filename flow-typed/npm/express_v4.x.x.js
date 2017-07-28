@@ -1,5 +1,5 @@
-// flow-typed signature: 49fdcc00eb0cf9d3f0cc15f76f9a63fb
-// flow-typed version: 42a4202af0/express_v4.x.x/flow_>=v0.32.x
+// flow-typed signature: 39856e7334de59d811b2d9b5db977f14
+// flow-typed version: cf90c0bb74/express_v4.x.x/flow_>=v0.32.x
 
 import type { Server } from 'http';
 import type { Socket } from 'net';
@@ -160,7 +160,7 @@ declare class express$Application extends express$Router mixins events$EventEmit
   listen(handle: Object, callback?: (err?: ?Error) => mixed): Server;
   disable(name: string): void;
   disabled(name: string): boolean;
-  enable(name: string): void;
+  enable(name: string): express$Application;
   enabled(name: string): boolean;
   engine(name: string, callback: Function): void;
   /**
@@ -173,8 +173,6 @@ declare class express$Application extends express$Router mixins events$EventEmit
 }
 
 declare module 'express' {
-  declare function serveStatic(root: string, options?: Object): express$Middleware;
-
   declare export type RouterOptions = express$RouterOptions;
   declare export type CookieOptions = express$CookieOptions;
   declare export type Middleware = express$Middleware;
@@ -185,7 +183,7 @@ declare module 'express' {
 
   declare module.exports: {
     (): express$Application, // If you try to call like a function, it will use this signature
-    static: serveStatic, // `static` property on the function
+    static: (root: string, options?: Object) => express$Middleware, // `static` property on the function
     Router: typeof express$Router, // `Router` property on the function
   };
 }
