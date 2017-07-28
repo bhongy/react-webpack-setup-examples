@@ -27,6 +27,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
+    "codecov": "^2.2.0",
     "css-loader": "^0.28.4",
     "css-mqpacker": "^6.0.1",
     "enzyme": "2.9.1",
@@ -51,7 +52,6 @@
     "postcss-mixins": "^6.0.0",
     "postcss-nesting": "^4.0.1",
     "postcss-scss": "^1.0.1",
-    "react-hot-loader": "next",
     "react-test-renderer": "15.6.1",
     "style-loader": "^0.18.2",
     "webpack": "^2.6.1",
@@ -61,6 +61,7 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "react": "15.6.1",
-    "react-dom": "15.6.1"
+    "react-dom": "15.6.1",
+    "react-hot-loader": "next"
   }
 }
