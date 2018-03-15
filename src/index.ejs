@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Webpack 2 Demo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- TODO: inline manifest once HtmlWebpackPlugin is updated for Webpack 4 -->
   </head>
   <body>
     <div id="react-root"></div>
-    <%= htmlWebpackPlugin.files.webpackManifest %>
   </body>
 </html>

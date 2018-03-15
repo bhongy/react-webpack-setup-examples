@@ -1,20 +1,24 @@
 {
   "name": "webpack-demo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "engines": {
-    "node": ">= 6.9.0"
+    "node": ">= 8.0.0"
   },
   "main": "index.js",
   "scripts": {
     "start": "node internal/dev-server",
-    "build": "webpack --config config/webpack.js --progress --env.production",
+    "build": "webpack --config config/webpack4.js",
+    "build:dev": "yarn build --mode development",
+    "build:prod": "yarn build --mode production",
+    "build:prod:profile":
+      "webpack --config config/webpack4.profile.js --mode production",
     "lint": "eslint '{config,internal,src}/**/*.js'",
     "flow-coverage": "flow-coverage-report -i './src/**/*.js' -t html -t text",
     "test": "jest --config=config/jest.json"
   },
-  "keywords": [],
-  "author": "Thanik Bhongbhibhat <bhongbhibhat@gmail.com>",
+  "keywords": ["webpack", "webpack 4"],
+  "author": "Thanik Bhongbhibhat <email@thanik.me>",
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -26,7 +30,8 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.16",
+    "case-sensitive-paths-webpack-plugin": "^2.1.2",
+    "clean-webpack-plugin": "^0.1.19",
     "codecov": "^2.2.0",
     "css-loader": "^0.28.4",
     "css-mqpacker": "^6.0.1",
@@ -39,12 +44,12 @@
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-relay": "^0.0.8",
     "express": "^4.15.3",
-    "extract-text-webpack-plugin": "^3.0.0",
     "flow-bin": "^0.51.1",
     "flow-coverage-report": "^0.3.0",
-    "html-webpack-plugin": "^2.29.0",
+    "html-webpack-plugin": "^3.0.6",
     "inline-manifest-webpack-plugin": "^3.0.1",
     "jest": "^20.0.4",
+    "mini-css-extract-plugin": "0.2.0",
     "postcss-advanced-variables": "^1.2.2",
     "postcss-calc": "^6.0.0",
     "postcss-discard-comments": "^2.0.4",
@@ -52,11 +57,13 @@
     "postcss-mixins": "^6.0.1",
     "postcss-nesting": "^4.0.1",
     "postcss-scss": "^1.0.2",
+    "react-dev-utils": "^5.0.0",
     "react-test-renderer": "15.6.1",
     "style-loader": "^0.18.2",
-    "webpack": "^3.4.1",
-    "webpack-dev-middleware": "^1.11.0",
-    "webpack-hot-middleware": "^2.18.2"
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12",
+    "webpack-dev-middleware": "^3.0.1",
+    "webpack-hot-middleware": "^2.21.2"
   },
   "dependencies": {
     "lodash": "^4.17.4",
