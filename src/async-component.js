@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 
 // eslint-disable-next-line no-undef
-const asyncComponent = (getComponent: () => Promise<React$Component>) =>
+const asyncComponent = (getComponent) =>
   class AsyncComponent extends PureComponent {
     constructor (props) {
       super(props);
