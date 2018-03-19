@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const project = require('../config/project');
 
 function build (mode /*: 'development' | 'production' */, configPath = 'config/webpack') {
-  const webpackConfig = require(project.paths.root(configPath))({}, { mode });
+  const webpackConfig = require(project.paths.root(configPath))({ mode });
   const compiler = webpack(webpackConfig);
   return new Promise((resolve, reject) => {
     console.log(`🤖  Webpack is building your ${mode} bundles ... `);

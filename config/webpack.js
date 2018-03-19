@@ -22,18 +22,13 @@ const project = require('./project');
  * and don't have to worry about whether/when NODE_ENV has changed
  */
 
-module.exports = (
-  // --env.watch, --env.foo=bar => { watch, true, foo: 'bar' }
-  env = {},
-  // args: passed by --mode development => { mode: 'development' }
-  { mode }
-) => {
+module.exports = ({ mode, watch = false }) => {
   if (!['development', 'production'].includes(mode)) {
     throw new Error(
       `mode is required to be either "development" or "production". Received: ${mode}. Pass it via the command line with --mode <mode>`
     );
   }
-  const { watch = false } = env;
+
   const production = mode === 'production';
 
   if (watch && production) {

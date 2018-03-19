@@ -3,10 +3,10 @@
 const express = require('express');
 const webpack = require('webpack');
 const project = require('../config/project');
-const webpackConfig = require('../config/webpack4')(
-  { watch: true },
-  { mode: 'development' }
-);
+const webpackConfig = require('../config/webpack')({
+  mode: 'development',
+  watch: true,
+});
 
 const app = express();
 const compiler = webpack(webpackConfig);
