@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 
 exports.browsers = ['last 2 versions'];
@@ -6,8 +8,11 @@ exports.browsers = ['last 2 versions'];
  * Paths
  */
 
-const rootPath = path.resolve(__dirname, '..');
-const root = path.resolve.bind(null, rootPath);
+// resolve from where this file lives instead of using `process.cwd()`
+// so it does not matter where or how we invoke the process
+// generally either methods should work because we run through yarn
+const rootPath = path.join(__dirname, '..');
+const root = path.join.bind(null, rootPath);
 
 exports.paths = {
   root,
@@ -15,10 +20,4 @@ exports.paths = {
   build: root.bind(null, 'build'),
 };
 
-/**
- * Webpack
- */
-
-exports.entry = {
-  vendor: ['react', 'react-dom'],
-};
+exports.fakeCdnUrl = 'https://cdn.thanik.me/not-real';

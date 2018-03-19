@@ -1,21 +1,32 @@
-![Project Webpack Version](https://img.shields.io/badge/webpack-2.6.1-blue.svg)
+![Project Webpack Version](https://img.shields.io/badge/webpack-4.1.1-blue.svg)
 
 ## Features
 
-- [x] Webpack 2
+- [x] Webpack 4
 - [x] CSS Modules and Postcss Support
 - [x] Extract CSS in production build
-- [x] Flow support
-- [x] Express Dev Server with react-hot-middleware
-- [x] Hot Module Replacement (HMR)
-- [x] Hot Reload React Components
-- [x] Vendor Chunk Splitting with CommonsChunkPlugin
+- [x] Output to folders by file types (css, js, images)
+- [ ] Express Dev Server with react-hot-middleware
+- [ ] Hot Module Replacement (HMR)
+- [ ] Hot Reload React Components
+- [x] Vendor/Common Chunk Splitting with `optimization.splitChunks`
 - [x] Dynamic import components
-- [x] Avoid using NODE_ENV as environment variable
-- [x] Jest test framework
 - [ ] HMR work with dynamic import modules
+- [x] Avoid using NODE_ENV as environment variable
+- [x] Flow support
+- [x] Jest test framework
 - [ ] DLL vendor chunks
 - [ ] React Router v4
+- [ ] Write build layer (Webpack) in Typescript
+
+## Webpack 4 Update
+
+Check out `config/webpack.js` for the Webpack 4 configuration with CSS extraction and optimization.
+
+Designed to work with 3 build types:
+- `yarn start`: dev-server using development build and watch mode
+- `yarn build:dev`: debug build - this generally is deployed for integration tests
+- `yarn build:prod`: production build (optimized, minified)
 
 ## Why another webpack boilerplate project?
 
@@ -26,15 +37,3 @@ During the research, I found many feature-rich, well-written boilerplates [add r
 I am not an expert in webpack. There is a lot about webpack that I don't understand but I hope this can help others find solutions of the same problems that I had.
 
 I also hope that this could be a place for me to collaborate and exchange knowledge with other engineers in regards to webpack setup for React apps.
-
-## Philosophy
-
-**Easy to understand**
-
-It is the design decision to write out webpack configs and minimize logics involved in preparing the configs for different environments. We have a one-to-one relationship between types of builds and webpack config files.
-
-The decision was made in order to keep the complexity low. When someone new to this project reads the configs, they do not need to understand special logics (e.g. conditionals, merges) to prepare the resulting configs.
-
-It is a trade-off because, by doing so, we sacrifice DRY-ness, which could prevent such scenarios as the setup between environments are slightly (and subtlely) out-of-sync.
-
-DRY-ness helps with maintainability and is important when the configs changes often and/or by different developers. As the goal of this project is sharing knowledge, I decided to keep it easy to understand. In fact, as we have only a few devs working on each app at my work, we are migrating our configs toward this more explicit but verbose approach rather than the DRY-er but smarter setup that we had.

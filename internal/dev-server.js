@@ -1,18 +1,24 @@
+'use strict';
+
 const express = require('express');
 const webpack = require('webpack');
 const project = require('../config/project');
-const webpackConfig = require('../config/webpack')({ production: false });
+const webpackConfig = require('../config/webpack')({
+  mode: 'development',
+  watch: true,
+});
 
 const app = express();
 const compiler = webpack(webpackConfig);
 
-app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
-  publicPath: webpackConfig.output.publicPath,
-  stats: {
-    colors: true,
-  },
-}));
+app.use(
+  require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+      colors: true,
+    },
+  })
+);
 
 app.use(require('webpack-hot-middleware')(compiler));
 
@@ -22,10 +28,9 @@ app.get('*', (req, res) => {
 
 const port = 8888;
 
-app.listen(port, (err) => {
+app.listen(port, err => {
   if (err) {
-    return console.log(err);
+    return console.error(err);
   }
-
   return console.log(`http://localhost:${port}`);
 });
