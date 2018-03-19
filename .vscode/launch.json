@@ -7,6 +7,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Webpack Build",
+      "program": "${workspaceFolder}/internal/build.js",
+      "args": [
+        "--mode",
+        "production"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Launch Node: Current File",
       "program": "${file}"
     },

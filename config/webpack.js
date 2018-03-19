@@ -11,7 +11,6 @@
  */
 
 const lodash = require('lodash');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CaseSensitivePathPlugin = require('case-sensitive-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -27,9 +26,13 @@ module.exports = (
   // --env.watch, --env.foo=bar => { watch, true, foo: 'bar' }
   env = {},
   // args: passed by --mode development => { mode: 'development' }
-  // webpack throws if `mode` is not either 'development' or 'production'
   { mode }
 ) => {
+  if (!['development', 'production'].includes(mode)) {
+    throw new Error(
+      `mode is required to be either "development" or "production". Received: ${mode}. Pass it via the command line with --mode <mode>`
+    );
+  }
   const { watch = false } = env;
   const production = mode === 'production';
 
@@ -130,6 +133,7 @@ module.exports = (
                       ? '[hash:base64:8]'
                       : '[name]__[local]--[hash:base64:6]',
                     modules: true,
+                    minimize: production,
                     sourceMap: true,
                   },
                 },
@@ -156,11 +160,6 @@ module.exports = (
 
     // because it's prettier than dangle `.filter(p => p != null)` ~ :P
     plugins: lodash.compact([
-      watch
-        ? null
-        : new CleanWebpackPlugin([project.paths.build()], {
-          root: project.paths.root(),
-        }),
       // prevent inconsistent errors in different environments (machines)
       // based on case sensitivity
       new CaseSensitivePathPlugin(),
