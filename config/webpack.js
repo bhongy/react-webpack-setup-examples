@@ -49,17 +49,7 @@ module.exports = ({ mode, watch = false }) => {
     // are resolved relative to this directory
     context: project.paths.src(),
     entry: {
-      main: watch
-        ? [
-          // provide HMR for the client
-          // `require.resolve` get path to the module
-          // instead of the module itself
-          // this is from create-react-app
-          require.resolve('react-dev-utils/webpackHotDevClient'),
-          // ensure the app code comes after HMR instrumentation
-          './index.js',
-        ]
-        : './index.js',
+      main: './index.js',
     },
 
     /**
