@@ -1,16 +1,22 @@
 'use strict';
 
 /**
+ * The large part of this configuration is pretty close to Webpack 4 default
+ * when passing --mode. The purpose of this file is to explicitly document
+ * what webpack gives you under the hood (build understanding for advanced
+ * configuration).
+ */
+
+/**
  * extrace CSS in dev or splitting runtime chunks hurts dev build time
- * but I think the slowness is not significant to my workflow and
- * and I found that it's valuable to keep behavior
- * in both dev and prod as close as possible
- * i.e. differences are:
+ * but I think the rebuild perf hit is acceptable to my workflow.
+ * I found that keeping behaviors in both dev and prod as close as possible
+ * is much nicer for maintenance in long run.
+ * i.e. the only differences are:
  *   only minification in prod
  *   only debug instrumentation in dev
  */
 
-const lodash = require('lodash');
 const CaseSensitivePathPlugin = require('case-sensitive-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -20,13 +26,17 @@ const project = require('./project');
  * Use the function config to avoid relying on process.env.NODE_ENV
  * this allows reasoning about the config environment statically
  * and don't have to worry about whether/when NODE_ENV has changed
+ *
+ * Note: the function signature is not compatible with webpack-cli but
+ * it's simpler for my use case.
  */
 
 module.exports = ({ mode, watch = false }) => {
-  if (!['development', 'production'].includes(mode)) {
-    throw new Error(
-      `mode is required to be either "development" or "production". Received: ${mode}. Pass it via the command line with --mode <mode>`
-    );
+  // webpack will validate `mode` to be 'development', 'production', 'none'
+  // but it also won't complain if `mode` is `undefined`
+  // this is to guard againsts unexpected use case when `mode` is not provided
+  if (typeof mode === 'undefined') {
+    throw new Error('`mode` is not provided or provided as `undefined`.');
   }
 
   const production = mode === 'production';
@@ -143,8 +153,7 @@ module.exports = ({ mode, watch = false }) => {
      * Plugins (chunk-level processing)
      */
 
-    // because it's prettier than dangle `.filter(p => p != null)` ~ :P
-    plugins: lodash.compact([
+    plugins: [
       // prevent inconsistent errors in different environments (machines)
       // based on case sensitivity
       new CaseSensitivePathPlugin(),
@@ -155,7 +164,7 @@ module.exports = ({ mode, watch = false }) => {
         title: 'Webpack Demo',
         template: project.paths.src('index.ejs'),
       }),
-    ]),
+    ],
 
     /**
      * Optimization (Webpack 4+)
