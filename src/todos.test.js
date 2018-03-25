@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, type ShallowWrapper } from 'enzyme';
 import Todos from './todos';
 
 // TODO: extract to a test helper module
@@ -14,9 +14,26 @@ const mockEvent = (target?: MockEventTarget = { value: '' }) => ({
 });
 
 describe('Todos', () => {
+  const enterInput = (input: ShallowWrapper, value: string): void => {
+    const event = mockEvent({ value });
+    input.simulate('change', event);
+  };
+
   it('does not render empty list', () => {
     const todos = shallow(<Todos />);
     expect(todos).toMatchSnapshot();
+  });
+
+  it('disables submit button when input is empty', () => {
+    const todos = shallow(<Todos />);
+    expect(todos.find('button').prop('disabled')).toEqual(true);
+  });
+
+  it('enables submit button when input has value', () => {
+    const todos = shallow(<Todos />);
+    const input = todos.find('input');
+    enterInput(input, 'anything');
+    expect(todos.find('button').prop('disabled')).toEqual(false);
   });
 
   it('renders the list of values', () => {
@@ -24,8 +41,7 @@ describe('Todos', () => {
 
     const todos = shallow(<Todos />);
     const input = todos.find('input');
-    const inputChangeEvent = mockEvent({ value });
-    input.simulate('change', inputChangeEvent);
+    enterInput(input, value);
     expect(todos).toMatchSnapshot();
     expect(todos.state('inputValue')).toEqual(value);
 

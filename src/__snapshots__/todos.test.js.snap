@@ -12,7 +12,7 @@ exports[`Todos does not render empty list 1`] = `
       value=""
     />
     <button
-      disabled={false}
+      disabled={true}
     >
       Add
     </button>
@@ -32,7 +32,7 @@ exports[`Todos renders the list of values 1`] = `
       value="Hasenschwanzbruch"
     />
     <button
-      disabled={true}
+      disabled={false}
     >
       Add
     </button>
@@ -59,7 +59,7 @@ exports[`Todos renders the list of values 2`] = `
       value=""
     />
     <button
-      disabled={false}
+      disabled={true}
     >
       Add
     </button>

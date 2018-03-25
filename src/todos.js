@@ -39,7 +39,7 @@ class Todos extends React.Component<Props, State> {
             type="text"
             placeholder="value to add"
           />
-          <button disabled={inputValue.length > 0}>Add</button>
+          <button disabled={!inputValue}>Add</button>
         </form>
       </React.Fragment>
     );
