@@ -80,6 +80,6 @@
     "raf": "^3.4.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "react-hot-loader": "next"
+    "react-hot-loader": "^4.0.0"
   }
 }
