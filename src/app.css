@@ -1,4 +1,4 @@
 .page {
-  background-color: pink;
+  background-color: $background-color;
   min-height: 100vh;
 }
