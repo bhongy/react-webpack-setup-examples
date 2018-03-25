@@ -1,4 +1,4 @@
-![Project Webpack Version](https://img.shields.io/badge/webpack-4.1.1-blue.svg)
+![Project Webpack Version](https://img.shields.io/badge/webpack-4.2.0-blue.svg)
 
 ## Features
 
