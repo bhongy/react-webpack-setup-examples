@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const url = require('url');
 
 exports.browsers = ['last 2 versions'];
 
@@ -21,3 +22,29 @@ exports.paths = {
 };
 
 exports.fakeCdnUrl = 'https://cdn.thanik.me/not-real';
+
+const hmr = {
+  // for webpack-hot-middleware: send heartbeat updates to the client
+  // to keep the connection alive. Should be less than the client's
+  // timeout setting.
+  heartbeat: 10000,
+  path: '/__webpack_hmr',
+};
+
+exports.hmr = Object.assign(
+  {
+    clientEntry(entry) {
+      return [
+        url.format({
+          pathname: 'webpack-hot-middleware/client',
+          query: {
+            path: hmr.path,
+            timeout: hmr.heartbeat / 2,
+          },
+        }),
+        entry,
+      ];
+    },
+  },
+  hmr
+);

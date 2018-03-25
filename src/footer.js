@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import s from './footer.css';
 
 class Footer extends React.Component<{}> {
@@ -13,4 +14,5 @@ class Footer extends React.Component<{}> {
   }
 }
 
-export default Footer;
+// enable hmr: react-hot-loader v4
+export default hot(module)(Footer);

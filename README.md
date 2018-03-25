@@ -6,12 +6,12 @@
 - [x] CSS Modules and Postcss Support
 - [x] Extract CSS in production build
 - [x] Output to folders by file types (css, js, images)
-- [ ] Express Dev Server with react-hot-middleware
-- [ ] Hot Module Replacement (HMR)
-- [ ] Hot Reload React Components
+- [x] Express Dev Server with react-hot-middleware
+- [x] Hot Module Replacement (HMR)
+- [x] Hot Reload React Components
 - [x] Vendor/Common Chunk Splitting with `optimization.splitChunks`
 - [x] Dynamic import components
-- [ ] HMR work with dynamic import modules
+- [x] HMR work with dynamic import modules
 - [x] Avoid using NODE_ENV as environment variable
 - [x] Flow support
 - [x] Jest test framework
