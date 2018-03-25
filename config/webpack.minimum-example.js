@@ -30,7 +30,7 @@ const project = require('./project');
 
 // webpack-cli will warn if mode is not provided
 // as either 'development' or 'production'
-module.exports = (_/* env */, { mode }/* args */) => {
+module.exports = (_ /* env */, { mode } /* args */) => {
   const production = mode === 'production';
   return {
     mode,

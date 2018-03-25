@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 // AppContainer is a necessary wrapper component for HMR
 import { AppContainer } from 'react-hot-loader';
 import App from './app';
+import 'raf/polyfill'; // react 16 needs requestAnimationFrame
 
 const rootElement = document.getElementById('react-root');
 const renderApp = () => {

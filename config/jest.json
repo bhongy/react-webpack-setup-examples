@@ -1,8 +1,17 @@
 {
   "rootDir": "..",
-  "roots": ["<rootDir>/src"],
-  "testEnvironment": "node",
-  "testMatch": ["**/*.test.js"],
+  "moduleNameMapper": {
+    "\\.css$": "identity-obj-proxy"
+  },
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ],
+  "setupFiles": [
+    "<rootDir>/config/test-setup.js"
+  ],
+  "testMatch": [
+    "<rootDir>/src/**/*.test.js"
+  ],
   "transform": {
     "^.+\\.js$": "babel-jest"
   }
