@@ -58,16 +58,24 @@ declare module 'extract-text-webpack-plugin/dist/index.js' {
   declare module.exports: $Exports<'extract-text-webpack-plugin/dist/index'>;
 }
 declare module 'extract-text-webpack-plugin/dist/lib/ExtractedModule.js' {
-  declare module.exports: $Exports<'extract-text-webpack-plugin/dist/lib/ExtractedModule'>;
+  declare module.exports: $Exports<
+    'extract-text-webpack-plugin/dist/lib/ExtractedModule'
+  >;
 }
 declare module 'extract-text-webpack-plugin/dist/lib/ExtractTextPluginCompilation.js' {
-  declare module.exports: $Exports<'extract-text-webpack-plugin/dist/lib/ExtractTextPluginCompilation'>;
+  declare module.exports: $Exports<
+    'extract-text-webpack-plugin/dist/lib/ExtractTextPluginCompilation'
+  >;
 }
 declare module 'extract-text-webpack-plugin/dist/lib/helpers.js' {
-  declare module.exports: $Exports<'extract-text-webpack-plugin/dist/lib/helpers'>;
+  declare module.exports: $Exports<
+    'extract-text-webpack-plugin/dist/lib/helpers'
+  >;
 }
 declare module 'extract-text-webpack-plugin/dist/lib/OrderUndefinedError.js' {
-  declare module.exports: $Exports<'extract-text-webpack-plugin/dist/lib/OrderUndefinedError'>;
+  declare module.exports: $Exports<
+    'extract-text-webpack-plugin/dist/lib/OrderUndefinedError'
+  >;
 }
 declare module 'extract-text-webpack-plugin/dist/loader.js' {
   declare module.exports: $Exports<'extract-text-webpack-plugin/dist/loader'>;
