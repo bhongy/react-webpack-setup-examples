@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todos does not render empty list 1`] = `
+<React.Fragment>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      onChange={[Function]}
+      placeholder="value to add"
+      type="text"
+      value=""
+    />
+    <button
+      disabled={false}
+    >
+      Add
+    </button>
+  </form>
+</React.Fragment>
+`;
+
+exports[`Todos renders the list of values 1`] = `
+<React.Fragment>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      onChange={[Function]}
+      placeholder="value to add"
+      type="text"
+      value="Hasenschwanzbruch"
+    />
+    <button
+      disabled={true}
+    >
+      Add
+    </button>
+  </form>
+</React.Fragment>
+`;
+
+exports[`Todos renders the list of values 2`] = `
+<React.Fragment>
+  <ul>
+    <li
+      key="0"
+    >
+      Hasenschwanzbruch
+    </li>
+  </ul>
+  <form
+    onSubmit={[Function]}
+  >
+    <input
+      onChange={[Function]}
+      placeholder="value to add"
+      type="text"
+      value=""
+    />
+    <button
+      disabled={false}
+    >
+      Add
+    </button>
+  </form>
+</React.Fragment>
+`;
