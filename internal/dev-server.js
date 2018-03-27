@@ -21,7 +21,7 @@ const hmrWebpackConfig = lodash.defaults(
       {
         noEmitOnErrors: true,
       },
-      lodash.optimization
+      webpackConfig.optimization
     ),
   },
   webpackConfig
