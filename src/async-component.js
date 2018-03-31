@@ -1,9 +1,15 @@
-import React, { PureComponent } from 'react';
+// @flow strict
+import * as React from 'react';
 
-// eslint-disable-next-line no-undef
-const asyncComponent = getComponent =>
-  class AsyncComponent extends PureComponent {
-    constructor(props) {
+type State<Props> = {
+  Component: ?React.ComponentType<Props>,
+};
+
+const asyncComponent = <T>(
+  getComponent: () => Promise<React.ComponentType<T>>
+) =>
+  class AsyncComponent extends React.Component<T, State<T>> {
+    constructor(props: T) {
       super(props);
       this.state = { Component: null };
     }

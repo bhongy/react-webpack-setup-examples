@@ -1,3 +1,4 @@
+// @flow strict
 import React from 'react';
 import s from './header.css';
 

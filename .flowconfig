@@ -15,3 +15,10 @@ esproposal.class_instance_fields=enable
 esproposal.class_static_fields=enable
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectError
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
+
+[strict]
+sketchy-null
+untyped-type-import
+untyped-import
+unclear-type
+unsafe-getters-setters
