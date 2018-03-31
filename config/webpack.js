@@ -59,7 +59,7 @@ module.exports = ({ mode, watch = false }) => {
     // are resolved relative to this directory
     context: project.paths.src(),
     entry: {
-      main: './index.js',
+      main: [require.resolve('./polyfills'), './index.js'],
     },
 
     /**

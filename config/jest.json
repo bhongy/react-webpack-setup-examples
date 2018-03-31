@@ -1,12 +1,14 @@
 {
   "rootDir": "..",
   "moduleNameMapper": {
+    "^@root/(.*)$": "<rootDir>/src/$1",
     "\\.css$": "identity-obj-proxy"
   },
   "snapshotSerializers": [
     "enzyme-to-json/serializer"
   ],
   "setupFiles": [
+    "<rootDir>/config/polyfills.js",
     "<rootDir>/config/test-setup.js"
   ],
   "testMatch": [

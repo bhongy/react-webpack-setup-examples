@@ -42,8 +42,7 @@ exports.hmr = Object.assign(
             timeout: hmr.heartbeat / 2,
           },
         }),
-        entry,
-      ];
+      ].concat(entry);
     },
   },
   hmr
