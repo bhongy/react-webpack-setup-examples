@@ -107,6 +107,8 @@ module.exports = ({ mode, watch = false }) => {
                     {
                       babelrc: false,
                       // enable caching for faster webpack rebuild
+                      // passing `true` will use default cache directory in
+                      // `node_modules/.cache/babel-loader`
                       cacheDirectory: watch,
                     },
                     require('./babel')[mode]
@@ -227,7 +229,8 @@ module.exports = ({ mode, watch = false }) => {
       // TODO: figure out how to use custom minimizer
       //   or pass uglifyjs options
       //   `minimizer: [new UglifyJS()]` ?
-      minimize: production,
+      // minimize: production,
+      minimize: false,
       // replacement for webpack.NoEmitOnErrorsPlugin
       // skip the emitting phase when there are an error
       noEmitOnErrors: production,
@@ -254,17 +257,20 @@ module.exports = ({ mode, watch = false }) => {
     // cache previous build result for faster re-build
     cache: watch,
     // webpack watch mode
+    // enabled by default in webpack-dev-server or webpack-dev-middleware
     watch,
 
     // fastest option that shows original source (lines only)
     devtool: production ? 'hidden-source-map' : 'cheap-module-eval-source-map',
+    // devtool: false,
     performance: {
       // do not warn about bundle size in development
       hints: production ? 'warning' : false,
     },
     // do not collect build profile
     profile: false,
-    stats: 'minimal',
+    // stats: 'minimal',
+    stats: 'normal',
     // compile for browser-like environment
     // target: 'web' is default
     target: 'web',

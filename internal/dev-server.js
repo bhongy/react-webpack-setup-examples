@@ -33,6 +33,7 @@ const compiler = webpack(hmrWebpackConfig);
 app.use(
   require('webpack-dev-middleware')(compiler, {
     publicPath: hmrWebpackConfig.output.publicPath,
+    logLevel: 'warn',
     stats: {
       colors: true,
     },

@@ -27,6 +27,7 @@ fs
   .then(() => build(argv.mode, argv.config))
   .then(stats => {
     console.log(chalk.green('Webpack build succeeded.'));
+    console.log(stats.toString({ colors: true }));
     const elapsedTime = (stats.endTime - stats.startTime) / 1000;
     console.log(`Total compilation time: ${elapsedTime.toFixed(2)}s`);
   })
